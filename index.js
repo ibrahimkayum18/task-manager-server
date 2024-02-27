@@ -25,6 +25,7 @@ async function run() {
     await client.connect();
 
     const projectCollection = client.db("TaskManager").collection("projects");
+    const skillsCollection = client.db("TaskManager").collection("skills");
 
     app.post("/projects", async (req, res) => {
       const data = req.body;
@@ -34,6 +35,10 @@ async function run() {
 
     app.get("/projects", async (req, res) => {
       const result = await projectCollection.find().toArray();
+      res.send(result);
+    });
+    app.get("/skills", async (req, res) => {
+      const result = await skillsCollection.find().toArray();
       res.send(result);
     });
 
