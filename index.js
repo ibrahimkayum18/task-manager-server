@@ -56,6 +56,8 @@ async function run() {
     //   res.send(result);
     // });
 
+    // for New projects
+
      app.put('/projects/:id', async(req, res) => {
         const id = req.params.id;
         const data = req.body;
