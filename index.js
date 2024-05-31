@@ -88,6 +88,7 @@ async function run() {
 
     app.post("/projects", async (req, res) => {
       const data = req.body;
+      data.createdAt = new Date();
       const result = await projectCollection.insertOne(data);
       res.send(result);
     });
@@ -128,7 +129,12 @@ async function run() {
         $set: {
           title: data.title,
           description: data.description,
+          deadline: data.deadline,
           priority: data.priority,
+          createdAt: data.createdAt,
+          modifiedAt: new Date(),
+          members: data.members,
+          assignedWork: data.assignedWork,
         },
       };
       const result = await projectCollection.updateOne(
