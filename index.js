@@ -145,6 +145,40 @@ async function run() {
       res.send(result);
     });
 
+    app.patch("/projects/todo/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const updatedDoc = {
+        $set: {
+          process: "todo",
+        },
+      };
+      const result = await projectCollection.updateOne(query, updatedDoc);
+      res.send(result);
+    });
+    app.patch("/projects/ongoing/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const updatedDoc = {
+        $set: {
+          process: "ongoing",
+        },
+      };
+      const result = await projectCollection.updateOne(query, updatedDoc);
+      res.send(result);
+    });
+    app.patch("/projects/finished/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const updatedDoc = {
+        $set: {
+          process: "finished",
+        },
+      };
+      const result = await projectCollection.updateOne(query, updatedDoc);
+      res.send(result);
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
@@ -158,7 +192,7 @@ async function run() {
 run().catch(console.dir);
 
 app.get("/", (req, res) => {
-  res.send("Task Management Server is running");
+  res.send("MadeIT Server is running");
 });
 
 app.listen(port, () => {
